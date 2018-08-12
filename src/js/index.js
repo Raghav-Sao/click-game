@@ -1,8 +1,9 @@
+const MAX_TIME = 120
 let activeElement = null,
   level = 3,
   score = 0,
   start = null,
-  timer = 12
+  timer = MAX_TIME
 
 dGBI = id => {
   return document.getElementById(id)
@@ -36,7 +37,7 @@ generateBackgroundOnDiv = (containerSize, boxSize) => {
     if (confirm('GAME OVER!!!')) {
       if (score > localStorage.getItem('score')) localStorage.setItem('score', score)
       score = 0
-      timer = 12
+      timer = MAX_TIME
       activeElement = null
       start = setInterval(generateBackgroundOnDiv, 1000, containerSize, boxSize)
     }
@@ -44,6 +45,7 @@ generateBackgroundOnDiv = (containerSize, boxSize) => {
     dGBI('start').disabled = false
     return
   }
+  dGBI('timer').innerHTML = timer
   childNumber = Math.floor(Math.random() * (containerSize / boxSize * containerSize / boxSize))
   dGBI(childNumber).style.background = 'green'
   activeElement = childNumber
@@ -74,6 +76,7 @@ dGBI('clickable-container').addEventListener('click', event => {
 })
 
 dGBI('start').addEventListener('click', () => {
+  timer = MAX_TIME
   const containerSize = 150 * level,
     boxSize = 150
   if (dGBI('box-container')) dGBI('clickable-container').removeChild(dGBI('box-container'))
