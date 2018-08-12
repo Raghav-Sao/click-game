@@ -55,13 +55,13 @@ generateBackgroundOnDiv = (containerSize, boxSize) => {
       ele.style.background = 'white'
       ele.setAttribute('clicked', false)
     },
-    900,
+    1000,
     childNumber
   )
 }
 
 dGBI('clickable-container').addEventListener('click', event => {
-  if (event.target.class === 'clickable' && !dGBI(childNumber).getAttribute('clicked')) {
+  if (event.target.class === 'clickable' && dGBI(childNumber).getAttribute('clicked') !== 'true') {
     if (activeElement == event.target.id) {
       dGBI(childNumber).setAttribute('clicked', true)
       if (++score > localStorage.getItem('score')) {
